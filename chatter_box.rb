@@ -3,15 +3,23 @@ class ChatterBox
 
   COMMANDS = [:hi, :how, :why, :when, :who, :where, :what, :bye]
 
-  def hi
+  def hi(args)
     puts "Well hi there! Nice to see you. :)"
   end
 
   def how(args)
-    if args.include?("are") || args.include?("you")
+    if args.include?("are") && args.include?("old")
+      puts "Younger than yo mama!"
+    elsif args.include?("are") || args.include?("you")
       puts "I'm doing well, thanks, how about you?"
+    elsif args.include?("can")
+      puts "Hold on...lemme look that up for you. Wait. I'm bored. Go do it yourself."
+    elsif args.include?("much") && (args.include?("could") || args.include?("can"))
+      puts "If I had to guess? More than you."
+    elsif args.include?("much")
+      puts "You couldn't afford it."
     else
-      puts "I'm not too sure how to do that...I'm a computer, after all."
+      puts "I'm not too sure how...I'm a computer, after all."
     end
   end
 
@@ -22,6 +30,18 @@ class ChatterBox
       puts "Phew! That's a question for the ages."
     elsif args.include?("are")
       puts "Umm, that's kind of personal, don't you think?"
+    elsif args.include?("can") && args.include?("i")
+      puts "Because you're amazing!"
+    elsif args.include?("can") && args.include?("you")
+      puts "Because I'm a boss."
+    elsif args.include?("cant") && args.include?("i")
+      puts "Well, I didn't want to say anything, but it's probably because you're not that special."
+    elsif args.include?("cant") && args.include?("you")
+      puts "What? Of course I can! I'm a total boss. Gah."
+    elsif args.include?("cant") && args.include?("we")
+      puts "We'd never work together. It's so obvious."
+    elsif args.include?("dont")
+      puts "Uhhh...no clue."
     else
       puts "Why not?"
     end
@@ -34,6 +54,8 @@ class ChatterBox
       puts "You're going to have to be more specific. Time is relative, after all. Or something."
     elsif args.include?("is")
       puts "Wouldn't you like to know."
+    elsif args.include?("did")
+      puts "Phew. Like so long ago, I can't even comprehend."
     else
       puts "A long time from now."
     end
@@ -55,7 +77,7 @@ class ChatterBox
     elsif args.include?("can")
       puts "Whenever you want!"
     else
-      puts "Probably never, or like way in the future or something."
+      puts "Probably on the moon."
     end
   end
 
@@ -74,7 +96,7 @@ class ChatterBox
   end
 
   def bye(args)
-    puts "bye"
+    puts "Well, ok. Bye then."
   end
 
   def say_what
@@ -83,10 +105,10 @@ class ChatterBox
 
   def call(sentence)
     sentence.split.each_with_index do |word, i|
-      if self.class::COMMANDS.include?(word.downcase.gsub(/[.?!,]/,'').to_sym)
-        self.send("#{word.downcase.strip.gsub(/[.?!,]/,'')}", sentence.downcase.gsub(/[.?!,]/,'').split)
+      if self.class::COMMANDS.include?(word.downcase.gsub(/[.?!,']/,'').to_sym)
+        self.send("#{word.downcase.strip.gsub(/[.?!,']/,'')}", sentence.downcase.gsub(/[.?!,']/,'').split)
         break
-      elsif i == sentence.length - 1
+      elsif i == sentence.split.length - 1
         puts "I have no idea what you're talking about."
       end
     end
@@ -96,3 +118,12 @@ end
 
 t = ChatterBox.new
 t.call("What is your favorite color?")
+t.call("Hi there!")
+t.call("Why can't we be friends?")
+t.call("How old are you?")
+t.call("What is the meaning of life?")
+t.call("Where were you born?")
+t.call("Who am I?")
+t.call("When can I meet your family?")
+t.call("How is cheese made?")
+t.call("Gobledygook blah pants")
